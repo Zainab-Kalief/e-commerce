@@ -1,0 +1,18 @@
+
+<div>
+  <h3>Sign Up</h3>
+  <form (submit)='sign_up()'>
+    Name: <input type="text" name="name" [(ngModel)]='user.name'>
+    Passsword: <input type="text" name="password" [(ngModel)]='user.password'>
+    <input type="submit" value="Sign Up">
+  </form>
+
+  <h3>Log In</h3>
+  <form (submit)='log_in()'>
+    Name: <input type="text" name="name" [(ngModel)]='logged_user.name'>
+    Passsword: <input type="text" name="password" [(ngModel)]='logged_user.password'>
+    <input type="submit" value="Log In" [disabled]='access.status'>
+    <p>You have {{access.count}} attempts</p>
+    <p *ngIf='access.status'>{{access.message}}</p>
+  </form>
+</div>

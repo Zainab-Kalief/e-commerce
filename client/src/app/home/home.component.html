@@ -1,0 +1,43 @@
+<a [routerLink]="['/home']">Home</a>
+<a [routerLink]="['/profile']">Profile</a>
+<a href="/log_out">Log Out</a>
+<div >
+  <input type="search" name="search" [(ngModel)]='user_search' placeholder="Search by {{selected}}">
+  <button [disabled]='user_search'>Search</button>
+  <label>
+    Name <input type="radio" name="option" value="name" [checked]="status" [(ngModel)]='selected'>
+    Category <input type="radio" name="option" value="category" [(ngModel)]='selected'>
+  </label>
+
+
+  Filter By: <select [(ngModel)]='price_order'>
+  <option selected disabled>Choose here</option>
+  <option value="low" >Low Price to High</option>
+  <option value="high">High Price to Low</option>
+</select>
+</div>
+
+<div *ngFor='let product of products | order:price_order | filter:user_search:selected , let ind = index' (click)='expand(ind)'>
+  <div *ngIf='user_id == product.seller_id'>
+    <h3>{{product.title}}</h3>  <button (click)='confirm_delete(product.title, product.product_id, ind)'>Delete</button>
+    <p><strong>{{product.price}}</strong> - {{product.category}}</p>
+    <p>{{product.time}}</p>
+    <div *ngIf='product.status'>
+      <p>by - {{product.seller}}</p>
+      <p>{{product.description}}</p>
+    </div>
+    <hr>
+  </div>
+
+  <div *ngIf='user_id != product.seller_id'>
+    <h3>{{product.title}}</h3>  <button>Contact</button>
+    <p><strong>{{product.price}}</strong> - {{product.category}}</p>
+    <p>{{product.time}}</p>
+    <div *ngIf='product.status'>
+      <p>by - {{product.seller}} - {{product.contact}}</p>
+      <p>{{product.description}}</p>
+    </div>
+    <hr>
+  </div>
+
+</div>

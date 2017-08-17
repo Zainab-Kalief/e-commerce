@@ -1,0 +1,26 @@
+
+  <h3>Welcome {{user}}</h3>
+  <a [routerLink]="['/home']">Home</a>
+  <a [routerLink]="['/profile']">Profile</a>
+  <a href="/log_out">Log Out</a>
+  <form (submit)='post_data()'>
+    Title: <input type="text" name="title" [(ngModel)]='product.title'><br>
+    Price: <input type="text" name="price" [(ngModel)]='product.price'><br>
+    Description: <textarea name="description" rows="8" cols="80" [(ngModel)]='product.description'></textarea><br>
+    Category: <select name="category" [(ngModel)]='product.category'><br>
+      <option value="Electronics">Electronics</option>
+      <option value="Home">Home</option>
+      <option value="Fashion">Fashion</option>
+      <option value="Books">Books</option>
+      <option value="Others">Others</option>
+    </select>
+    <input type="submit"  value="Create">
+  </form>
+
+<div *ngFor='let product of user_products, let ind = index'>
+  <h4>{{product.title}}  - {{product.price}}</h4><span>{{product.category}}</span>
+  <p>{{product.description}}</p>
+  <p>{{product.createdAt | date:medium}}</p>
+  <button (click)='open_dialog(product, product._id)'>Update</button>
+  <hr>
+</div>
